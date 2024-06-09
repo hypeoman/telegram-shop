@@ -1,21 +1,26 @@
 import mysql.connector
+import logging
+import configure
 from mysql.connector import Error
 
 class DB_Connection:
     def connect_to_db():
+        logger = logging.getLogger(__name__)
+        logging.basicConfig(filename='connector.log', level=logging.INFO)
+
         try:
         # Подключение к базе данных
             connection = mysql.connector.connect(
-                host='localhost',       # Замените на адрес вашего сервера
-                database='TemaBuyShop',  # Замените на имя вашей базы данных
-                user='root',    # Замените на имя вашего пользователя
-                password='123qwE!' # Замените на пароль вашего пользователя
+                host='localhost',
+                database='TemaBuy',
+                user='root',
+                password='ser0905mama'
             )
 
             if connection.is_connected():
-                print("Successfully connected to the database")
+                logger.info("Успешное подключение к базе данных.")
 
-            # Создание курсора
+            # Возврат курсорса
                 return connection
         except:
-            print("Подключение не установлено.")
+            logger.error("Не удалось подключиться к базе данных.")
